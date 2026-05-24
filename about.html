@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us | Life Gap Fixer — Purpose-built platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      /* Light theme (default) */
+      --bg-gradient-start: #f8fafc;
+      --bg-gradient-end: #e2e8f0;
+      --surface-1: rgba(255, 255, 255, 0.85);
+      --surface-2: rgba(255, 255, 255, 0.92);
+      --surface-glass: rgba(255, 255, 255, 0.65);
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --accent: #7c3aed;
+      --accent-soft: rgba(124, 58, 237, 0.12);
+      --accent-2: #2563eb;
+      --border-light: rgba(0, 0, 0, 0.08);
+      --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      --shadow-md: 0 20px 25px -12px rgba(0, 0, 0, 0.08);
+      --shadow-glow: 0 0 30px rgba(124, 58, 237, 0.15);
+      --card-bg: rgba(255, 255, 255, 0.75);
+      --hero-text-bg: rgba(255, 255, 255, 0.6);
+      --btn-secondary-bg: rgba(0, 0, 0, 0.04);
+      --btn-secondary-border: rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark {
+      --bg-gradient-start: #0f172a;
+      --bg-gradient-end: #020617;
+      --surface-1: rgba(15, 23, 42, 0.85);
+      --surface-2: rgba(30, 41, 59, 0.9);
+      --surface-glass: rgba(15, 23, 42, 0.65);
+      --text-primary: #f1f5f9;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --accent: #8b5cf6;
+      --accent-2: #38bdf8;
+      --border-light: rgba(255, 255, 255, 0.08);
+      --shadow-sm: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 20px 30px -12px rgba(0, 0, 0, 0.4);
+      --shadow-glow: 0 0 35px rgba(139, 92, 246, 0.2);
+      --card-bg: rgba(15, 23, 42, 0.7);
+      --hero-text-bg: rgba(15, 23, 42, 0.65);
+      --btn-secondary-bg: rgba(255, 255, 255, 0.05);
+      --btn-secondary-border: rgba(255, 255, 255, 0.1);
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Inter', system-ui, sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-primary);
+      transition: background 0.4s ease, color 0.3s ease;
+      min-height: 100vh;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background blobs */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -20%;
+      left: -10%;
+      width: 80%;
+      height: 80%;
+      background: radial-gradient(circle, rgba(124, 58, 237, 0.15) 0%, rgba(56, 189, 248, 0.08) 60%, transparent 80%);
+      filter: blur(80px);
+      z-index: 0;
+      pointer-events: none;
+      animation: floatBlob 18s infinite alternate;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -15%;
+      right: -5%;
+      width: 70%;
+      height: 70%;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.12) 0%, rgba(124, 58, 237, 0.06) 60%, transparent 80%);
+      filter: blur(90px);
+      z-index: 0;
+      pointer-events: none;
+      animation: floatBlob2 22s infinite alternate;
+    }
+
+    @keyframes floatBlob {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+      100% { transform: translate(5%, 5%) scale(1.1); opacity: 1; }
+    }
+
+    @keyframes floatBlob2 {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+      100% { transform: translate(-5%, -8%) scale(1.15); opacity: 0.9; }
+    }
+
+    .page-shell {
+      position: relative;
+      z-index: 2;
+      width: min(1280px, calc(100% - 2.5rem));
+      margin: 0 auto;
+      padding: 1.5rem 0 3rem;
+    }
+
+    /* Theme Toggle Button */
+    .theme-toggle {
+      background: var(--surface-glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-light);
+      border-radius: 3rem;
+      padding: 0.5rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .theme-toggle:hover {
+      transform: scale(1.02);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .theme-toggle svg {
+      width: 20px;
+      height: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .theme-toggle:hover svg {
+      transform: rotate(15deg);
+    }
+
+    /* Header */
+    .site-header {
+      position: sticky;
+      top: 1.2rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      padding: 0.7rem 2rem;
+      margin-bottom: 2rem;
+      border-radius: 3rem;
+      background: var(--surface-glass);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-sm);
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .logo {
+      font-size: 1.45rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.02em;
+      transition: transform 0.2s;
+      text-decoration: none;
+    }
+
+    .logo:hover {
+      transform: scale(1.02);
+    }
+
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      background: rgba(0, 0, 0, 0.02);
+      padding: 0.25rem;
+      border-radius: 3rem;
+    }
+
+    .main-nav a {
+      padding: 0.6rem 1.3rem;
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.9rem;
+      border-radius: 2rem;
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+
+    .main-nav a.active {
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    }
+
+    .main-nav a:hover:not(.active) {
+      background: var(--accent-soft);
+      color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    /* Hero Panel Single */
+    .hero-panel-single {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem 0 3rem;
+    }
+
+    .hero-text {
+      max-width: 800px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      padding: 0.5rem 1.2rem;
+      border-radius: 100px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: 0.5px solid var(--border-light);
+      backdrop-filter: blur(4px);
+    }
+
+    .hero-text h1 {
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      line-height: 1.1;
+      margin: 1.2rem 0 1rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent), var(--accent-2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      letter-spacing: -0.03em;
+    }
+
+    .hero-text p {
+      background: var(--hero-text-bg);
+      backdrop-filter: blur(16px);
+      padding: 1.6rem;
+      border-radius: 1.8rem;
+      border: 1px solid var(--border-light);
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1.8rem;
+      justify-content: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 3rem;
+      font-weight: 700;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(125deg, var(--accent), var(--accent-2));
+      color: white;
+      box-shadow: 0 6px 18px rgba(124, 58, 237, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px -8px rgba(124, 58, 237, 0.5);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      border: 1px solid var(--btn-secondary-border);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+
+    /* Sections */
+    .section {
+      padding: 3rem 0;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .section-heading {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      margin-top: 0.5rem;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    /* Grid layouts */
+    .about-grid, .team-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .about-card, .team-card {
+      background: var(--card-bg);
+      backdrop-filter: blur(12px);
+      border-radius: 2rem;
+      padding: 2rem;
+      border: 1px solid var(--border-light);
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      text-align: center;
+    }
+
+    .about-card:hover, .team-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .about-card h3, .team-card h4 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .about-card p, .team-card p {
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .footer-panel {
+      text-align: center;
+      padding: 2.5rem 0 1rem;
+      border-top: 1px solid var(--border-light);
+      color: var(--text-muted);
+      margin-top: 2rem;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .about-grid, .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .site-header { flex-wrap: wrap; padding: 0.8rem 1.2rem; }
+      .main-nav { order: 3; width: 100%; justify-content: center; margin-top: 0.5rem; }
+      .hero-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; justify-content: center; }
+      .about-grid, .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<div class="page-shell">
+  <header class="site-header">
+    <a class="logo" href="#">✨ Life Gap Fixer</a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="#" class="active">About</a>
+      <a href="user/services.html">Services</a>
+      <a href="user/flow.html">User Flow</a>
+      <a href="user/helper.html">Helper</a>
+      <a href="admin/dashboard.html">Admin</a>
+    </nav>
+    <div class="theme-toggle" id="themeToggle">
+      <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <span>Light / Dark</span>
+    </div>
+  </header>
+
+  <section class="section section-hero">
+    <div class="hero-panel-single">
+      <div class="hero-text">
+        <span class="eyebrow">📖 About the Platform</span>
+        <h1>Purpose-built to close the task gap.</h1>
+        <p>Life Gap Fixer was designed to connect people who need help with trusted helpers, while making payments, progress tracking, and community trust easier than ever — all wrapped in a beautiful, intuitive experience.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#">✨ View Services</a>
+          <a class="btn btn-secondary" href="#">🏠 Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-about">
+    <div class="section-heading">
+      <span class="eyebrow">🎯 Why we exist</span>
+      <h2>Empowering every task with care, clarity, and community.</h2>
+    </div>
+    <div class="about-grid">
+      <article class="about-card">
+        <h3>🚀 Mission</h3>
+        <p>To bridge everyday needs with local helpers through a seamless platform built on transparency, reliability, and timely support — turning to-dos into triumphs.</p>
+      </article>
+      <article class="about-card">
+        <h3>🌟 Vision</h3>
+        <p>To create a trusted digital marketplace where users feel safe posting tasks and helpers feel rewarded for their expertise, fostering meaningful economic connections.</p>
+      </article>
+      <article class="about-card">
+        <h3>💎 Core Values</h3>
+        <p>Trust, speed, fairness, and meaningful connections drive everything we do on Life Gap Fixer. Every feature echoes integrity.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section section-team">
+    <div class="section-heading">
+      <span class="eyebrow">🛠️ Our Approach</span>
+      <h2>Designing a balanced workflow for users, helpers, and admins.</h2>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <h4>👥 User-first design</h4>
+        <p>We prioritize ease of posting, tracking, and reviewing for anyone seeking help. Intuitive dashboards and real-time updates keep you in control.</p>
+      </div>
+      <div class="team-card">
+        <h4>🤝 Helper-friendly tools</h4>
+        <p>Helpers get clear task details, status updates, secure payments, and reputation growth — empowering them to deliver excellence every time.</p>
+      </div>
+      <div class="team-card">
+        <h4>⚙️ Admin controls</h4>
+        <p>Admins can manage users, tasks, payments, and community health with powerful oversight features, analytics, and moderation tools.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-panel">
+    <p>✨ Life Gap Fixer Platform — bridging tasks and helpers with efficiency and trust. © 2025</p>
+  </footer>
+</div>
+
+<script>
+  // ========== DARK/LIGHT THEME TOGGLE ==========
+  const themeToggle = document.getElementById('themeToggle');
+  
+  function setTheme(theme) {
+    if (theme === 'dark') {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }
+  
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'dark') {
+    document.body.classList.add('dark');
+  } else if (savedTheme === 'light') {
+    document.body.classList.remove('dark');
+  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    document.body.classList.add('dark');
+  }
+  
+  themeToggle?.addEventListener('click', () => {
+    if (document.body.classList.contains('dark')) {
+      setTheme('light');
+    } else {
+      setTheme('dark');
+    }
+  });
+  
+  // Intersection Observer for scroll animations
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+  sections.forEach(section => observer.observe(section));
+  
+  // Sticky header shadow on scroll
+  window.addEventListener('scroll', () => {
+    const header = document.querySelector('.site-header');
+    if (window.scrollY > 50) {
+      header.style.boxShadow = '0 15px 35px -10px rgba(0,0,0,0.2)';
+      header.style.backdropFilter = 'blur(24px)';
+    } else {
+      header.style.boxShadow = 'var(--shadow-sm)';
+    }
+  });
+  
+  // Trigger first visible section immediately
+  setTimeout(() => {
+    if (sections.length) sections[0].classList.add('visible');
+  }, 200);
+</script>
+</body>
+</html>
